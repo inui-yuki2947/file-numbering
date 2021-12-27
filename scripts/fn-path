@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# File Number Path
+# 連番とファイルパスから、ファイルパスを取得する。
+# 第1引数として連番、第2引数としてファイル名を指定する。
+# `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
+
+# オプションの解析
+digit=2
+while getopts d: opt; do
+  case $opt in
+    d) digit="$OPTARG";;
+    *) exit 1;;
+  esac
+done
+shift $((OPTIND - 1))
+
+echo "$(dirname "$2")/$(printf "%0${digit}d" "$1")_$(fn-name "$2")"
