@@ -2,24 +2,17 @@
 
 # File Number Modify
 # ファイル名の連番を変更する。
-# 引数として、処理対象のファイルを指定する。
-# `-f 四則演算式`オプションで、番号に対して行う四則演算を指定できる。（デフォルトは四則演算なし）
+# 第1引数として連番、第2引数としてファイル名を指定する。
 # `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
 
 # オプションの解析
-formula=
 digit=2
 while getopts f:d: opt; do
   case $opt in
-    f) formula="$OPTARG";;
-    d) digit="$OPTARG";;
-    *) exit 1;;
+  d) digit="$OPTARG" ;;
+  *) exit 1 ;;
   esac
 done
 shift $((OPTIND - 1))
 
-for file_path in "${@}"; do
-  ((new_number=$(fn-number "$file_path")${formula}))
-  new_file_path=$(fn-path -d "$digit" "$new_number" "$file_path")
-  mv -i "$file_path" "$new_file_path"
-done
+mv "$2" "$(fn-path -d "$digit" "$1" "$2")"

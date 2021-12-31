@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# File Number Clean
+# ファイル名の連番を振り直す。
+# 引数として、処理対象のファイルを指定する。
+# `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
+# TODO 連番を各ディレクトリごとに振る
+
+# オプションの解析
+digit=2
+while getopts f:d: opt; do
+  case $opt in
+    d) digit="$OPTARG";;
+    *) exit 1;;
+  esac
+done
+shift $((OPTIND - 1))
+
+i=1
+(IFS=$'\n'; echo "${*}") | sort | while read -r file_path; do
+  fn-mod -d "$digit" $i "$file_path"
+  ((i++))
+done
