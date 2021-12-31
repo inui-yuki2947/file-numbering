@@ -15,4 +15,7 @@ while getopts f:d: opt; do
 done
 shift $((OPTIND - 1))
 
-mv "$2" "$(fn-path -d "$digit" "$1" "$2")"
+# 連番が最大数以外の場合は変更する
+if [ "$(fn-number "$2")" -ne $((10 ** digit -1)) ]; then
+  mv "$2" "$(fn-path -d "$digit" "$1" "$2")"
+fi
