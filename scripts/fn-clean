@@ -2,9 +2,9 @@
 
 # File Number Clean
 # ファイル名の連番を振り直す。
-# 引数として、処理対象のファイルを指定する。
+# 引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
 # `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
-# TODO 連番を各ディレクトリごとに振る
+# TODO サブディレクトリを遡り、連番をそれぞれ振る
 
 # オプションの解析
 digit=2
@@ -17,7 +17,7 @@ done
 shift $((OPTIND - 1))
 
 i=1
-(IFS=$'\n'; echo "${*}") | sort | while read -r file_path; do
+find "${1:-.}" -depth 1 | sort | while read -r file_path; do
   fn-mod -d "$digit" $i "$file_path"
   ((i++))
 done
