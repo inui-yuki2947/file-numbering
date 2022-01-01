@@ -17,7 +17,7 @@ done
 shift $((OPTIND - 1))
 
 i=1
-find "${1:-.}" -depth 1 | sort | while read -r file_path; do
+find "${1:-.}" -depth 1 | fn-filter | sort | while read -r file_path; do
   fn-mod -d "$digit" $i "$file_path"
   ((i++))
 done
