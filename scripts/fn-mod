@@ -16,6 +16,7 @@ done
 shift $((OPTIND - 1))
 
 # 連番が最大数以外の場合は変更する
-if [ "$(fn-number "$2")" -ne $((10 ** digit -1)) ]; then
-  mv "$2" "$(fn-path -d "$digit" "$1" "$2")"
+new_path=$(fn-path -d "$digit" "$1" "$2")
+if [ "$(fn-number "$2")" -ne $((10 ** digit - 1)) ] && [ "$2" != "$new_path" ]; then
+  mv "$2" "$new_path"
 fi
