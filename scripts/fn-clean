@@ -2,7 +2,7 @@
 
 # File Number Clean
 # ファイル名の連番を振り直す。
-# 引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
+# 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
 # `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
 
 # オプションの解析
@@ -15,14 +15,17 @@ while getopts f:d: opt; do
 done
 shift $((OPTIND - 1))
 
-# カレントディレクトリに対しての処理
+# 引数の解析
+directory="${1:-.}"
+
+# 指定ディレクトリに対しての処理
 i=1
-find "${1:-.}" -depth 1 | fn-filter | sort | while read -r file_path; do
+find "$directory" -depth 1 | fn-filter | sort | while read -r file_path; do
   fn-mod -d "$digit" $i "$file_path"
   ((i++))
 done
 
 # サブディレクトリに対しての処理
-find "${1:-.}" -depth 1 -type d | fn-filter | while read -r directory; do
-  fn-clean -d "$digit" "$directory"
+find "$directory" -depth 1 -type d | fn-filter | while read -r sub_directory; do
+  fn-clean -d "$digit" "$sub_directory"
 done
