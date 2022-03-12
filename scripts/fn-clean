@@ -16,7 +16,9 @@ done
 shift $((OPTIND - 1))
 
 # 引数の解析
+# 末尾のスラッシュは除去する。
 directory="${1:-.}"
+directory="${directory%/}"
 
 # 指定ディレクトリに対しての処理
 i=1
