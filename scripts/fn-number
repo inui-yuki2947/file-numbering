@@ -5,7 +5,7 @@
 # 引数または標準入力として、ファイル名を指定する。
 
 if [ -n "$1" ]; then
-  basename "$1" | grep -oE "^[0-9]+" | sed "s/^0*//"
+  basename "$1" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"
 else
   while read -r file_path; do
     fn-number "$file_path"
