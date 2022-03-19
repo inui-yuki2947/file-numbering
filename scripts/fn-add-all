@@ -19,7 +19,7 @@ max_number=$((10 ** digit - 1))
 
 # 指定ディレクトリに対しての処理
 i=1
-find "$directory" -depth 1 | fn-filter | sort | while read -r file_path; do
+find "$directory" -depth 1 | fn-file-added | sort | while read -r file_path; do
   # 連番が最大値以外の場合は変更する。
   number=$(fn-number "$file_path")
   if [ "$number" -ne "$max_number" ] ; then
@@ -29,6 +29,6 @@ find "$directory" -depth 1 | fn-filter | sort | while read -r file_path; do
 done
 
 # サブディレクトリに対しての処理
-find "$directory" -depth 1 -type d | fn-filter | while read -r sub_directory; do
+find "$directory" -depth 1 -type d | fn-file-added | while read -r sub_directory; do
   fn-add-all "$sub_directory"
 done
