@@ -16,7 +16,7 @@ old_path="$2"
 
 # 各値の算出
 directory=$(dirname "$old_path")
-digit=$(fn-digit "$directory")
+digit=$(fn-config-digit "$directory")
 new_number_string=$(printf "%0${digit}d" "$new_number")
 file_name=$(fn-get-name <<< "$old_path")
 new_path=${directory}/${new_number_string}_${file_name}

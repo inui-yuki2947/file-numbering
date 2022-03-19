@@ -6,8 +6,8 @@ set -e
 # 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
 
 # 実行例
-# fn-digit
-# fn-digit sample
+# fn-config-digit
+# fn-config-digit sample
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
