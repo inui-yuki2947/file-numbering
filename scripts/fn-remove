@@ -10,12 +10,8 @@ set -e
 # 引数の解析
 old_path="$1"
 
-# 各値の算出
-directory=$(dirname "$old_path")
-file_name=$(fn-get-name "$old_path")
-new_path=${directory}/${file_name}
-
 # ファイル・ディレクトリ名の変更
+new_path=$(fn-get-path "$old_path")
 if [ "$old_path" != "$new_path" ]; then
   mv "$old_path" "$new_path"
   echo "Name changed! $old_path -> $new_path"
