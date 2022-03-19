@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-# File Number Modify
-# ファイル・ディレクトリ名の連番を変更する。
+# ファイル・ディレクトリ名に、連番を追加（変更）する。
 # 第1引数として、連番を指定する。
 # 第2引数として、ファイル・ディレクトリ名を指定する。
 
 # 実行例
-# fn-mod 12 sample/01_hoge
-# fn-mod 12 sample/01_hoge/01_aaa
+# fn-add 12 sample/01_hoge
+# fn-add 12 sample/01_hoge/01_aaa
+# fn-add 12 sample/01_hoge/ddd
 
 # 引数の解析
 new_number="$1"
