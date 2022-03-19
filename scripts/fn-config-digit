@@ -2,7 +2,7 @@
 set -e
 
 # File Number Digit
-# 設定ファイルから、連番の桁数を取得する。（デフォルトは"2"）
+# 設定ファイルから、連番の桁数を取得する。（存在しない場合は、"../.fn.json"が使用される）
 # 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
 
 # 実行例
@@ -13,8 +13,10 @@ set -e
 # 末尾のスラッシュは除去する。
 directory="${1:-.}"
 directory="${directory%/}"
-
 [ -d "$directory" ] || (echo "Invalid directory: $directory" ; exit 1 )
+
+# 設定ファイルの読み取り
 setting_file="${directory}/.fn.json"
+[ -f "$setting_file" ] || setting_file="$(dirname "$0")/../.fn.json"
 # TODO ファイル内に設定値がない、または不正な場合の考慮
-jq ".digit" "$setting_file" 2>/dev/null || echo "2"
+jq ".digit" "$setting_file"
