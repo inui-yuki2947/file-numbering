@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+# File Number Digit
+# 設定ファイルから、連番の桁数を取得する。（デフォルトは"2"）
+# 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
+
+# 実行例
+# fn-digit
+# fn-digit sample
+
+# 引数の解析
+# 末尾のスラッシュは除去する。
+directory="${1:-.}"
+directory="${directory%/}"
+
+[ -d "$directory" ] || (echo "Invalid directory: $directory" ; exit 1 )
+setting_file="${directory}/.fn.json"
+# TODO ファイル内に設定値がない、または不正な場合の考慮
+jq ".digit" "$setting_file" 2>/dev/null || echo "2"
