@@ -24,4 +24,5 @@ new_path=${directory}/${new_number_string}_${file_name}
 # ファイル・ディレクトリ名の変更
 if [ "$old_path" != "$new_path" ]; then
   mv "$old_path" "$new_path"
+  echo "Name changed! $old_path -> $new_path"
 fi
