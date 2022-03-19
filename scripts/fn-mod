@@ -22,11 +22,11 @@ done
 shift $((OPTIND - 1))
 
 # 引数の解析
-number="$1"
+new_number="$1"
 old_path="$2"
 
 # 連番が最大数以外の場合は変更する
-new_path=$(fn-path -d "$digit" "$number" "$old_path")
+new_path=$(fn-path -d "$digit" "$new_number" "$old_path")
 if [ "$(fn-number "$old_path")" -ne $((10 ** digit - 1)) ] && [ "$old_path" != "$new_path" ]; then
   mv "$old_path" "$new_path"
 fi
