@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # File Number Path
 # 連番とファイルパスから、ファイルパスを取得する。

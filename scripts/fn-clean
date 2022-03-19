@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # File Number Clean
 # ファイル名の連番を振り直す。

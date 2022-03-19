@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # File Number Modify
 # ファイル名の連番を変更する。

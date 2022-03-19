@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # File Number Filter
 # 連番管理を行っているファイル名のみ出力する。

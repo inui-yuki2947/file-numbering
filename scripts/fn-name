@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # File Number Name
 # ファイル名から連番を除いた名前を取得する。
