@@ -2,14 +2,14 @@
 set -e
 
 # 連番及びファイル・ディレクトリ名から、連番を付与したファイル・ディレクトリ名を取得する。
-# 第1引数として、連番を指定する。
-# 第2引数として、ファイル・ディレクトリ名を指定する。
+# 第1引数として、ファイル・ディレクトリ名を指定する。
+# 第2引数として、連番を指定する。
 
 # 実行例
-# fn-get-path 1 sample/hoge
+# fn-get-path sample/hoge 1
 
-number="$1"
-path="$2"
+path="$1"
+number="$2"
 
 directory=$(dirname "$path")
 digit=$(fn-config-digit "$directory")

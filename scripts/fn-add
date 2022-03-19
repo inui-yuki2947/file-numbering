@@ -15,7 +15,7 @@ new_number="$1"
 old_path="$2"
 
 # ファイル・ディレクトリ名の変更
-new_path=$(fn-get-path "$new_number" "$old_path")
+new_path=$(fn-get-path "$old_path" "$new_number")
 if [ "$old_path" != "$new_path" ]; then
   mv "$old_path" "$new_path"
   echo "Name changed! $old_path -> $new_path"
