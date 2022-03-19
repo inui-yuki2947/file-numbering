@@ -6,10 +6,10 @@ set -e
 # 第2引数として、連番を指定する。（デフォルトは連番なし）
 
 # 実行例
-# fn-add sample/01_hoge
-# fn-add sample/01_hoge 12
-# fn-add sample/01_hoge/01_aaa
-# fn-add sample/01_hoge/01_aaa 12
+# fn-apply sample/01_hoge
+# fn-apply sample/01_hoge 12
+# fn-apply sample/01_hoge/01_aaa
+# fn-apply sample/01_hoge/01_aaa 12
 
 # 引数の解析
 old_path="$1"
