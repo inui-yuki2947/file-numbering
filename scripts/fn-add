@@ -2,17 +2,17 @@
 set -e
 
 # ファイル・ディレクトリ名に、連番を追加（変更）する。
-# 第1引数として、連番を指定する。
-# 第2引数として、ファイル・ディレクトリ名を指定する。
+# 第1引数として、ファイル・ディレクトリ名を指定する。
+# 第2引数として、連番を指定する。
 
 # 実行例
-# fn-add 12 sample/01_hoge
-# fn-add 12 sample/01_hoge/01_aaa
-# fn-add 12 sample/01_hoge/eee
+# fn-add sample/01_hoge 12
+# fn-add sample/01_hoge/01_aaa 12
+# fn-add sample/01_hoge/eee 12
 
 # 引数の解析
-new_number="$1"
-old_path="$2"
+old_path="$1"
+new_number="$2"
 
 # ファイル・ディレクトリ名の変更
 new_path=$(fn-get-path "$old_path" "$new_number")
