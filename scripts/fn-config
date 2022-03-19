@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+# 設定ファイルから、指定したキーの値を取得する。
+# 設定ファイルが存在しない場合は、"../.fn.json"が使用される。
+# 第1引数として、取得する項目のキーを指定する。
+# 第2引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
+
+# 実行例
+# fn-config digit
+# fn-config digit sample
+
+# 引数の解析
+# 末尾のスラッシュは除去する。
+config_key="$1"
+directory="${2:-.}"
+directory="${directory%/}"
+[ -d "$directory" ] || (echo "Invalid directory: $directory" ; exit 1 )
+
+# 設定ファイルの読み取り
+config_file="${directory}/.fn.json"
+[ -f "$config_file" ] || config_file="$(dirname "$0")/../.fn.json"
+# TODO ファイル内に設定値がない、または不正な場合の考慮
+jq ".$config_key" "$config_file"

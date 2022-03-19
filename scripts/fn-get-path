@@ -14,7 +14,7 @@ number="$2"
 
 directory=$(dirname "$path")
 if [ -n "$number" ]; then
-  digit=$(fn-config-digit "$directory")
+  digit=$(fn-config digit "$directory")
   number_string=$(printf "%0${digit}d_" "$number")
 fi
 file_name=$(basename "$path" | sed "s/^[0-9]*_//")
