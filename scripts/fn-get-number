@@ -2,11 +2,9 @@
 set -e
 
 # ファイル名から連番を取得する。
-# 標準入力として、ファイル名を指定する。
+# 第1引数として、ファイル名を指定する。
 
 # 実行例
-# find sample/01_hoge -depth 1 | fn-get-number
+# fn-get-number sample/01_hoge
 
-while read -r file_path; do
-  basename "$file_path" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"
-done
+basename "$1" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"
