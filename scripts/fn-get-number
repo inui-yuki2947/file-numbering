@@ -5,7 +5,7 @@ set -e
 # 標準入力として、ファイル名を指定する。
 
 # 実行例
-# find sample/01_hoge -depth 1 | fn-file-number
+# find sample/01_hoge -depth 1 | fn-get-number
 
 while read -r file_path; do
   basename "$file_path" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"

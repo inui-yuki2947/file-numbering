@@ -12,7 +12,7 @@ old_path="$1"
 
 # 各値の算出
 directory=$(dirname "$old_path")
-file_name=$(fn-file-name <<< "$old_path")
+file_name=$(fn-get-name <<< "$old_path")
 new_path=${directory}/${file_name}
 
 # ファイル・ディレクトリ名の変更

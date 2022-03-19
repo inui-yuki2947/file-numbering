@@ -5,7 +5,7 @@ set -e
 # 標準入力として、ファイル名を指定する。
 
 # 実行例
-# find sample/01_hoge -depth 1 | fn-file-name
+# find sample/01_hoge -depth 1 | fn-get-name
 
 while read -r file_path; do
   basename "$file_path" | sed "s/^[0-9]*_//"

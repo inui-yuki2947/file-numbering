@@ -18,7 +18,7 @@ old_path="$2"
 directory=$(dirname "$old_path")
 digit=$(fn-digit "$directory")
 new_number_string=$(printf "%0${digit}d" "$new_number")
-file_name=$(fn-file-name <<< "$old_path")
+file_name=$(fn-get-name <<< "$old_path")
 new_path=${directory}/${new_number_string}_${file_name}
 
 # ファイル・ディレクトリ名の変更
