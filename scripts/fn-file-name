@@ -1,14 +1,16 @@
 #!/bin/bash
 set -e
 
-# File Number Name
 # ファイル名から連番を除いた名前を取得する。
 # 引数または標準入力として、ファイル名を指定する。
+
+# 実行例
+# ls sample/01_hoge | fn-file-name
 
 if [ -n "$1" ]; then
   basename "$1" | sed "s/^[0-9]*_//"
 else
   while read -r file_path; do
-    fn-name "$file_path"
+    fn-file-name "$file_path"
   done
 fi
