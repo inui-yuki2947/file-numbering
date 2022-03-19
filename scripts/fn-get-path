@@ -13,6 +13,6 @@ number="$2"
 
 directory=$(dirname "$path")
 digit=$(fn-config-digit "$directory")
-number_string=$(printf "%0${digit}d" "$number")
+number_string=$(printf "%0${digit}d_" "$number")
 file_name=$(fn-get-name "$path")
-echo "${directory}/${number_string}_${file_name}"
+echo "${directory}/${number_string}${file_name}"
