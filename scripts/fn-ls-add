@@ -5,8 +5,8 @@ set -e
 # 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
 
 # 実行例
-# fn-add-all
-# fn-add-all sample/01_hoge
+# fn-ls-add
+# fn-ls-add sample/01_hoge
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
@@ -31,6 +31,6 @@ done
 # サブディレクトリに対しての処理
 fn-ls "$directory" | sort | while read -r file_path; do
   if [ -d "$file_path" ]; then
-    fn-add-all "$file_path"
+    fn-ls-add "$file_path"
   fi
 done
