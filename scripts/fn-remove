@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+# ファイル・ディレクトリ名から、連番を削除する。
+# 第1引数として、ファイル・ディレクトリ名を指定する。
+
+# 実行例
+# fn-remove sample/01_hoge/01_aaa
+
+# 引数の解析
+old_path="$1"
+
+# 各値の算出
+directory=$(dirname "$old_path")
+file_name=$(fn-file-name <<< "$old_path")
+new_path=${directory}/${file_name}
+
+# ファイル・ディレクトリ名の変更
+if [ "$old_path" != "$new_path" ]; then
+  mv "$old_path" "$new_path"
+  echo "Name changed! $old_path -> $new_path"
+fi
