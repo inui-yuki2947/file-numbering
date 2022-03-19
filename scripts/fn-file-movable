@@ -5,7 +5,7 @@ set -e
 # 標準入力として、ファイル名を指定する。
 
 # 実行例
-# ls sample/01_hoge | fn-file-movable
+# find sample/01_hoge -depth 1 | fn-file-movable
 
 while read -r file_path; do
   digit=$(fn-digit "$(dirname "$file_path")")

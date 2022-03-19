@@ -5,7 +5,7 @@ set -e
 # 標準入力として、ファイル名を指定する。
 
 # 実行例
-# ls sample/01_hoge | fn-file-added
+# find sample/01_hoge -depth 1 | fn-file-added
 
 while read -r file_path; do
   [[ $(basename "$file_path") =~ ^[0-9]+_ ]] && echo "$file_path"
