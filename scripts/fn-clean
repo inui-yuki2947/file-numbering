@@ -4,17 +4,6 @@ set -e
 # File Number Clean
 # ファイル名の連番を振り直す。
 # 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
-# `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
-
-# オプションの解析
-digit=2
-while getopts f:d: opt; do
-  case $opt in
-    d) digit="$OPTARG";;
-    *) exit 1;;
-  esac
-done
-shift $((OPTIND - 1))
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
@@ -24,11 +13,11 @@ directory="${directory%/}"
 # 指定ディレクトリに対しての処理
 i=1
 find "$directory" -depth 1 | fn-filter | sort | while read -r file_path; do
-  fn-mod -d "$digit" $i "$file_path"
+  fn-mod $i "$file_path"
   ((i++))
 done
 
 # サブディレクトリに対しての処理
 find "$directory" -depth 1 -type d | fn-filter | while read -r sub_directory; do
-  fn-clean -d "$digit" "$sub_directory"
+  fn-clean "$sub_directory"
 done

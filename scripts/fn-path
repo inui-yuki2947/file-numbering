@@ -5,16 +5,6 @@ set -e
 # 連番とファイルパスから、ファイルパスを取得する。
 # 第1引数として、連番を指定する。
 # 第2引数として、ファイル名を指定する。
-# `-d 桁数`オプションで、連番桁数を指定できる。（デフォルトは`2`）
 
-# オプションの解析
-digit=2
-while getopts d: opt; do
-  case $opt in
-    d) digit="$OPTARG";;
-    *) exit 1;;
-  esac
-done
-shift $((OPTIND - 1))
-
+digit=$(fn-digit "$(dirname "$2")")
 echo "$(dirname "$2")/$(printf "%0${digit}d" "$1")_$(fn-name "$2")"
