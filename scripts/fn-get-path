@@ -17,5 +17,5 @@ if [ -n "$number" ]; then
   digit=$(fn-config-digit "$directory")
   number_string=$(printf "%0${digit}d_" "$number")
 fi
-file_name=$(fn-get-name "$path")
+file_name=$(basename "$path" | sed "s/^[0-9]*_//")
 echo "${directory}/${number_string}${file_name}"
