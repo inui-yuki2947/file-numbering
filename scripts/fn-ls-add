@@ -15,6 +15,7 @@ directory="${directory%/}"
 
 # 各値の算出
 digit=$(fn-config digit "$directory")
+delimiter=_
 fix_max_number=$(fn-config fixMaxNumber "$directory")
 max_number=$((10 ** digit - 1))
 
@@ -22,7 +23,7 @@ max_number=$((10 ** digit - 1))
 i=1
 fn-ls "$directory" | sort | while read -r file_path; do
   # 連番が最大値の場合は、最大値を保つ。
-  if [ "$fix_max_number" = true ] && [[ "$(basename "$file_path")" =~ ^9+_ ]] ; then
+  if [ "$fix_max_number" = true ] && [[ "$(basename "$file_path")" =~ ^9+${delimiter} ]] ; then
     fn-apply "$file_path" $max_number
   else
     fn-apply "$file_path" $i
