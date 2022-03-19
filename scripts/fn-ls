@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+# 指定したディレクトリの、管理対象ファイル・ディレクトリを出力する。
+# 管理対象ファイルは、隠しファイル・ディレクトリ及び"README.md"以外の全ファイル・ディレクトリである。
+# 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
+
+# 実行例
+# fn-ls
+# fn-ls sample/01_hoge
+
+# 引数の解析
+# 末尾のスラッシュは除去する。
+directory="${1:-.}"
+directory="${directory%/}"
+
+find "$directory" -depth 1 -not -name "README.md" -not -name ".*"
