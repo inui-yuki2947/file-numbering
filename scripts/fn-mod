@@ -14,11 +14,16 @@ set -e
 new_number="$1"
 old_path="$2"
 
+# 各値の算出
+directory=$(dirname "$old_path")
+digit=$(fn-digit "$directory")
+new_number_string=$(printf "%0${digit}d" "$new_number")
+file_name=$(fn-name "$old_path")
+new_path=${directory}/${new_number_string}_${file_name}
+
 # 連番が最大数以外の場合は変更する
-digit=$(fn-digit "$(dirname "$old_path")")
 old_number=$(fn-number "$old_path")
 max_number=$((10 ** digit - 1))
-new_path=$(dirname "$old_path")/$(printf "%0${digit}d" "$new_number")_$(fn-name "$old_path")
 if [ "$old_number" -ne "$max_number" ] && [ "$old_path" != "$new_path" ]; then
   mv "$old_path" "$new_path"
 fi
