@@ -1,9 +1,12 @@
 #!/bin/bash
 set -e
 
-# File Number Clean
-# ファイル名の連番を振り直す。
+# 指定したディレクトリの管理対象の全ファイル・ディレクトリ名に、連番を追加（変更）する。
 # 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
+
+# 実行例
+# fn-add-all
+# fn-add-all sample/01_hoge
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
@@ -27,5 +30,5 @@ done
 
 # サブディレクトリに対しての処理
 find "$directory" -depth 1 -type d | fn-filter | while read -r sub_directory; do
-  fn-clean "$sub_directory"
+  fn-add-all "$sub_directory"
 done
