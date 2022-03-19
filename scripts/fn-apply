@@ -8,8 +8,8 @@ set -e
 # 実行例
 # fn-apply sample/01_hoge
 # fn-apply sample/01_hoge 12
-# fn-apply sample/01_hoge/01_aaa
-# fn-apply sample/01_hoge/01_aaa 12
+# fn-apply sample/01_hoge/01_hoge01
+# fn-apply sample/01_hoge/01_hoge01 12
 
 # 引数の解析
 old_path="$1"
