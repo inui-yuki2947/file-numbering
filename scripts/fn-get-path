@@ -13,8 +13,8 @@ set -e
 path="$1"
 number="$2"
 
-delimiter=_
 directory=$(dirname "$path")
+delimiter=$(fn-config delimiter "$directory")
 if [ -n "$number" ]; then
   digit=$(fn-config digit "$directory")
   number_string=$(printf "%0${digit}d${delimiter}" "$number")

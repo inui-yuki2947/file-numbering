@@ -15,7 +15,7 @@ directory="${directory%/}"
 
 # 各値の算出
 digit=$(fn-config digit "$directory")
-delimiter=_
+delimiter=$(fn-config delimiter "$directory")
 fix_max_number=$(fn-config fixMaxNumber "$directory")
 max_number=$((10 ** digit - 1))
 

@@ -21,4 +21,4 @@ directory="${directory%/}"
 config_file="${directory}/.fn.json"
 [ -f "$config_file" ] || config_file="$(dirname "$0")/../.fn.json"
 # TODO ファイル内に設定値がない、または不正な場合の考慮
-jq ".$config_key" "$config_file"
+jq -r ".$config_key" "$config_file"
