@@ -8,7 +8,7 @@ set -e
 # 実行例
 # fn-add 12 sample/01_hoge
 # fn-add 12 sample/01_hoge/01_aaa
-# fn-add 12 sample/01_hoge/ddd
+# fn-add 12 sample/01_hoge/eee
 
 # 引数の解析
 new_number="$1"
