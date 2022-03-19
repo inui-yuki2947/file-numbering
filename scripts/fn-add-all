@@ -22,7 +22,7 @@ i=1
 fn-ls "$directory" | sort | while read -r file_path; do
   # 連番が最大値以外の場合は変更する。
   number=$(fn-file-number <<< "$file_path")
-  if [ "$number" -ne "$max_number" ] ; then
+  if [ "$number" != "$max_number" ] ; then
     fn-add $i "$file_path"
     ((i++))
   fi
