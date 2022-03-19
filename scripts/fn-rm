@@ -5,8 +5,8 @@ set -e
 # 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
 
 # 実行例
-# fn-ls-remove
-# fn-ls-remove sample/01_hoge
+# fn-rm
+# fn-rm sample/01_hoge
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
@@ -21,6 +21,6 @@ done
 # サブディレクトリに対しての処理
 fn-ls "$directory" | sort | while read -r file_path; do
   if [ -d "$file_path" ]; then
-    fn-ls-remove "$file_path"
+    fn-rm "$file_path"
   fi
 done
