@@ -20,9 +20,10 @@ max_number=$((10 ** digit - 1))
 # 指定ディレクトリに対しての処理
 i=1
 fn-ls "$directory" | sort | while read -r file_path; do
-  # 連番が最大値以外の場合は変更する。
-  number=$(fn-get-number "$file_path")
-  if [ "$number" != "$max_number" ] ; then
+  # 連番が最大値の場合は、最大値を保つ。
+  if [[ "$(basename "$file_path")" =~ ^9+_ ]] ; then
+    fn-apply "$file_path" $max_number
+  else
     fn-apply "$file_path" $i
     ((i++))
   fi
