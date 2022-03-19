@@ -1,3 +1,4 @@
 {
-  "digit": 3
+  "digit": 3,
+  "fixMaxNumber": false
 }
