@@ -10,11 +10,19 @@ set -e
 directory="${1:-.}"
 directory="${directory%/}"
 
+# 各値の算出
+digit=$(fn-digit "$directory")
+max_number=$((10 ** digit - 1))
+
 # 指定ディレクトリに対しての処理
 i=1
 find "$directory" -depth 1 | fn-filter | sort | while read -r file_path; do
-  fn-mod $i "$file_path"
-  ((i++))
+  # 連番が最大値以外の場合は変更する。
+  number=$(fn-number "$file_path")
+  if [ "$number" -ne "$max_number" ] ; then
+    fn-mod $i "$file_path"
+    ((i++))
+  fi
 done
 
 # サブディレクトリに対しての処理
