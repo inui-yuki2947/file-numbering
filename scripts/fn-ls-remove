@@ -15,7 +15,7 @@ directory="${directory%/}"
 
 # 指定ディレクトリに対しての処理
 fn-ls "$directory" | sort | while read -r file_path; do
-  fn-remove "$file_path"
+  fn-apply "$file_path"
 done
 
 # サブディレクトリに対しての処理
