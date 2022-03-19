@@ -2,15 +2,11 @@
 set -e
 
 # ファイル名から連番を取得する。
-# 引数または標準入力として、ファイル名を指定する。
+# 標準入力として、ファイル名を指定する。
 
 # 実行例
 # ls sample/01_hoge | fn-file-number
 
-if [ -n "$1" ]; then
-  basename "$1" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"
-else
-  while read -r file_path; do
-    fn-file-number "$file_path"
-  done
-fi
+while read -r file_path; do
+  basename "$file_path" | grep -oE "^[0-9]+" | perl -pe "s/^0*([0-9]+)$/\1/"
+done
