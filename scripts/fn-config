@@ -1,19 +1,29 @@
 #!/bin/bash
 set -e
 
-# 設定ファイルから、指定したキーの値を取得する。
+# 設定ファイルから、各種設定値を取得する。
 # 設定ファイルが存在しない場合は、"../.fn.json"が使用される。
-# 第1引数として、取得する項目のキーを指定する。
-# 第2引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
+# 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
+# "-q"オプションで、適用するjq表現を指定できる。
 
 # 実行例
-# fn-config digit
-# fn-config digit sample
+# fn-config
+# fn-config sample
+# fn-config -q .digit
+# fn-config -q .digit sample
+
+# オプションの解析
+while getopts q: opt; do
+  case $opt in
+    q) jq_expression="$OPTARG";;
+    *) exit 1;;
+  esac
+done
+shift $((OPTIND - 1))
 
 # 引数の解析
 # 末尾のスラッシュは除去する。
-config_key="$1"
-directory="${2:-.}"
+directory="${1:-.}"
 directory="${directory%/}"
 [ -d "$directory" ] || (echo "Invalid directory: $directory" ; exit 1 )
 
@@ -21,4 +31,4 @@ directory="${directory%/}"
 config_file="${directory}/.fn.json"
 [ -f "$config_file" ] || config_file="$(dirname "$0")/../.fn.json"
 # TODO ファイル内に設定値がない、または不正な場合の考慮
-jq -r ".$config_key" "$config_file"
+jq -r "$jq_expression" "$config_file"

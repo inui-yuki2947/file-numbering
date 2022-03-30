@@ -15,9 +15,9 @@ path="$1"
 number="$2"
 
 directory=$(dirname "$path")
-delimiter=$(fn-config delimiter "$directory")
+delimiter=$(fn-config -q .delimiter "$directory")
 if [ -n "$number" ]; then
-  digit=$(fn-config digit "$directory")
+  digit=$(fn-config -q .digit "$directory")
   number_string=$(printf "%0${digit}d${delimiter}" "$number")
 fi
 file_name=$(basename "$path" | sed "s/^[0-9]*${delimiter}//")
