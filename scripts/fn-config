@@ -25,7 +25,6 @@ shift $((OPTIND - 1))
 # 末尾のスラッシュは除去する。
 directory="${1:-.}"
 directory="${directory%/}"
-[ -d "$directory" ] || (echo "Invalid directory: $directory" ; exit 1 )
 
 # 設定ファイルの読み取り
 config_file="${directory}/.fn.json"
