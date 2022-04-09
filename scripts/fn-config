@@ -13,6 +13,7 @@ set -e
 # fn-config -q .digit sample
 
 # オプションの解析
+jq_expression="."
 while getopts q: opt; do
   case $opt in
     q) jq_expression="$OPTARG";;
@@ -26,8 +27,11 @@ shift $((OPTIND - 1))
 directory="${1:-.}"
 directory="${directory%/}"
 
-# 設定ファイルの読み取り
-config_file="${directory}/.fn.json"
-[ -f "$config_file" ] || config_file="$(dirname "$0")/../.fn.json"
-# TODO ファイル内に設定値がない、または不正な場合の考慮
-jq -r "$jq_expression" "$config_file"
+# 設定ファイルをマージして読み取る。（カレントディレクトリのファイル、デフォルトのファイルの順で優先して読み取る）
+config_file_current="${directory}/.fn.json"
+config_file_default="$(dirname "$0")/../.fn.json"
+if [ -f "$config_file_current" ]; then
+  jq -sr "add | $jq_expression" "$config_file_default" "$config_file_current"
+else
+  jq -r "$jq_expression" "$config_file_default"
+fi

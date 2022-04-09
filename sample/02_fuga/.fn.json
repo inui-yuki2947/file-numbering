@@ -1,7 +1,6 @@
 {
   "digit": 3,
   "delimiter": "-",
-  "fixMaxNumber": false,
   "ignorePaths": [
     "\\..*",
     "README\\.md",
