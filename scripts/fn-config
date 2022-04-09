@@ -2,7 +2,7 @@
 set -e
 
 # 設定ファイルから、各種設定値を取得する。
-# 設定ファイルが存在しない場合は、"../.fn.json"が使用される。
+# 設定ファイルが存在しない場合は、"../.file-numbering.json"が使用される。
 # 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
 # "-q"オプションで、適用するjq表現を指定できる。
 # TODO 設定ファイルをYAMLでも書けるようにする。
@@ -29,8 +29,8 @@ directory="${1:-.}"
 directory="${directory%/}"
 
 # 設定ファイルをマージして読み取る。（カレントディレクトリのファイル、デフォルトのファイルの順で優先して読み取る）
-config_file_current="${directory}/.fn.json"
-config_file_default="$(dirname "$0")/../.fn.json"
+config_file_current="${directory}/.file-numbering.json"
+config_file_default="$(dirname "$0")/../.file-numbering.json"
 if [ -f "$config_file_current" ]; then
   jq -sr "add | $jq_expression" "$config_file_default" "$config_file_current"
 else
