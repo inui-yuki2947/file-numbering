@@ -2,10 +2,11 @@
 set -e
 
 # 設定ファイルから、各種設定値を取得する。
-# 設定ファイルが存在しない場合は、"../.file-numbering.json"が使用される。
+# 設定ファイルとしては、下記の優先順で使用する。
+# .file-numbering.yml
+# .file-numbering.json
 # 第1引数として、ディレクトリを指定する。（デフォルトはカレントディレクトリ）
 # "-q"オプションで、適用するjq表現を指定できる。
-# TODO 設定ファイルをYAMLでも書けるようにする。
 
 # 実行例
 # fn-config
@@ -29,10 +30,14 @@ directory="${1:-.}"
 directory="${directory%/}"
 
 # 設定ファイルをマージして読み取る。（カレントディレクトリのファイル、デフォルトのファイルの順で優先して読み取る）
-config_file_current="${directory}/.file-numbering.json"
 config_file_default="$(dirname "$0")/../.file-numbering.json"
-if [ -f "$config_file_current" ]; then
-  jq -sr "add | $jq_expression" "$config_file_default" "$config_file_current"
+config_file_current_yml="${directory}/.file-numbering.yml"
+config_file_current_json="${directory}/.file-numbering.json"
+if [ -f "$config_file_current_yml" ]; then
+  # yqでは使えない表現があるため、yqでJSONに変換した後にjqを使う。
+  jq -sr "add | $jq_expression" "$config_file_default" <(yq -o json . "$config_file_current_yml")
+elif [ -f "$config_file_current_json" ]; then
+  jq -sr "add | $jq_expression" "$config_file_default" "$config_file_current_json"
 else
   jq -r "$jq_expression" "$config_file_default"
 fi
