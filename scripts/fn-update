@@ -4,6 +4,8 @@ PATH="$(dirname "$0"):$PATH"
 
 # 指定したディレクトリの管理対象の全ファイル・ディレクトリ名に、連番を追加（変更）する。
 # 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
+# TODO 「ディレクトリ自体はナンバリングしつつ、その配下はナンバリングしない」ことができるようにする。
+# TODO コマンドラインオプションでも一時的に設定ができるようにする。
 
 # 実行例
 # fn-update
@@ -33,6 +35,7 @@ fn-ls "$directory" | sort | while read -r file_path; do
 done
 
 # サブディレクトリに対しての処理
+# 上位ディレクトリがリネームされる可能性があるため、ここで再度パスを取得する。
 fn-ls "$directory" | sort | while read -r file_path; do
   if [ -d "$file_path" ]; then
     fn-update "$file_path"
