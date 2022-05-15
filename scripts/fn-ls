@@ -17,4 +17,4 @@ directory="${directory%/}"
 # 除外パスを取得し、適切な正規表現に変換する。
 ignorePaths=$(fn-config -q .ignorePaths[] "$directory" | perl -pe "s#(.*)#^$directory/\1\\\$#")
 
-find "$directory" -depth 1 | grep -vf <(echo "$ignorePaths")
+find "$directory" -mindepth 1 -maxdepth 1 | grep -vf <(echo "$ignorePaths")
