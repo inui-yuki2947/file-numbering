@@ -3,18 +3,18 @@ set -e
 PATH="$(dirname "$0"):$PATH"
 
 # 指定したディレクトリの管理対象の全ファイル・ディレクトリ名に、連番を追加（変更）する。
-# 第1引数として、処理対象のディレクトリを指定する。（デフォルトはカレントディレクトリ）
+# 引数として、処理対象のディレクトリを複数指定できる。（デフォルトはカレントディレクトリ）
 # TODO 「ディレクトリ自体はナンバリングしつつ、その配下はナンバリングしない」ことができるようにする。
 # TODO コマンドラインオプションでも一時的に設定ができるようにする。
 
 # 実行例
 # fn-update
-# fn-update sample/01_hoge
+# fn-update sample
+# fn-update sample/01_hoge sample/02_fuga
 
 # 引数の解析
-# 末尾のスラッシュは除去する。
-directory="${1:-.}"
-directory="${directory%/}"
+directories=("$@")
+[ ${#directories[@]} = 0 ] && directories=(.)
 
 # 各値の算出
 digit=$(fn-config -q .digit "$directory")
@@ -23,21 +23,25 @@ fix_max_number=$(fn-config -q .fixMaxNumber "$directory")
 max_number=$((10 ** digit - 1))
 
 # 指定ディレクトリに対しての処理
-i=1
-fn-ls "$directory" | sort | while read -r file_path; do
-  # 連番が最大値の場合は、最大値を保つ。
-  if [ "$fix_max_number" = true ] && [[ "$(basename "$file_path")" =~ ^9+${delimiter} ]] ; then
-    fn-apply "$file_path" $max_number
-  else
-    fn-apply "$file_path" $i
-    ((i++))
-  fi
-done
+for directory in "${directories[@]}"; do
+  # 末尾のスラッシュは除去する。
+  directory="${directory%/}"
+  i=1
+  fn-ls "$directory" | sort | while read -r file_path; do
+    # 連番が最大値の場合は、最大値を保つ。
+    if [ "$fix_max_number" = true ] && [[ "$(basename "$file_path")" =~ ^9+${delimiter} ]]; then
+      fn-apply "$file_path" $max_number
+    else
+      fn-apply "$file_path" $i
+      ((i++))
+    fi
+  done
 
-# サブディレクトリに対しての処理
-# 上位ディレクトリがリネームされる可能性があるため、ここで再度パスを取得する。
-fn-ls "$directory" | sort | while read -r file_path; do
-  if [ -d "$file_path" ]; then
-    fn-update "$file_path"
-  fi
+  # サブディレクトリに対しての処理
+  # 上位ディレクトリがリネームされる可能性があるため、ここで再度パスを取得する。
+  fn-ls "$directory" | sort | while read -r file_path; do
+    if [ -d "$file_path" ]; then
+      fn-update "$file_path"
+    fi
+  done
 done
